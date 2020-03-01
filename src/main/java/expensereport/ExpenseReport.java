@@ -11,18 +11,20 @@ public class ExpenseReport {
     private List<Expense> expenses = new ArrayList<Expense>();
     private int mealExpenses = 0;
     private int total = 0;
+    private ReportPrinter printer;
 
     public void printReport(ReportPrinter printer) {
-        printHeader(printer);
-
+        this.printer = printer;
         totalsUpExpense();
 
-        printExpenses(printer);
+        printHeader();
 
-        printTotals(printer, total, mealExpenses);
+        printExpenses();
+
+        printTotals();
     }
 
-    private void printExpenses(ReportPrinter printer) {
+    private void printExpenses() {
         for (Expense expense : expenses) {
 
             String name = "TILT";
@@ -54,12 +56,12 @@ public class ExpenseReport {
         }
     }
 
-    private void printTotals(ReportPrinter printer, int total, int mealExpenses) {
+    private void printTotals() {
         printer.print(String.format("\nMeal expenses $%.02f", mealExpenses / 100.0));
         printer.print(String.format("\nTotal $%.02f", total / 100.0));
     }
 
-    private void printHeader(ReportPrinter printer) {
+    private void printHeader() {
         printer.print("Expenses " + getDate() + "\n");
     }
 
