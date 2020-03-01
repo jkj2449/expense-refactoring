@@ -4,9 +4,6 @@ import static expensereport.Expense.Type.BREAKFAST;
 import static expensereport.Expense.Type.DINNER;
 
 public class Expense {
-
-
-
     public enum Type {DINNER, BREAKFAST, CAR_RENTAL};
 
     public Type type;
