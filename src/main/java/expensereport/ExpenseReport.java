@@ -31,11 +31,15 @@ public class ExpenseReport {
     private void printExpenses() {
         for (Expense expense : expenses) {
             printer.print(String.format("%s\t%s\t$%.02f\n",
-                    ((expense.type == DINNER && expense.amount > 5000)
-                            || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
+                    isOverage(expense) ? "X" : " ",
                     getName(expense), expense.amount / 100.0));
 
         }
+    }
+
+    private boolean isOverage(Expense expense) {
+        return (expense.type == DINNER && expense.amount > 5000)
+                || (expense.type == BREAKFAST && expense.amount > 1000);
     }
 
     private String getName(Expense expense) {
