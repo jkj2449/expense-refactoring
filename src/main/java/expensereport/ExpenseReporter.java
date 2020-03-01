@@ -1,19 +1,14 @@
 package expensereport;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class ExpenseReporter {
-    private List<Expense> expenses = new ArrayList<Expense>();
-    private int mealExpenses = 0;
-    private int total = 0;
+    private final ExpenseReport expenseReport = new ExpenseReport();
     private ReportPrinter printer;
 
     public void printReport(ReportPrinter printer) {
         this.printer = printer;
 
-        totalsUpExpense();
+        expenseReport.totalsUpExpense();
         printExpensesAndTotals();
     }
 
@@ -24,7 +19,7 @@ public class ExpenseReporter {
     }
 
     private void printExpenses() {
-        for (Expense expense : expenses) {
+        for (Expense expense : expenseReport.getExpenses()) {
             printer.print(String.format("%s\t%s\t$%.02f\n",
                     expense.isOverage() ? "X" : " ",
                     expense.getName(), expense.amount / 100.0));
@@ -32,22 +27,9 @@ public class ExpenseReporter {
         }
     }
 
-    private void totalsUpExpense() {
-        for (Expense expense : expenses) {
-            totalUpExpense(expense);
-        }
-    }
-
-    private void totalUpExpense(Expense expense) {
-        if (expense.isMeal())
-            mealExpenses += expense.amount;
-
-        total += expense.amount;
-    }
-
     private void printTotals() {
-        printer.print(String.format("\nMeal expenses $%.02f", mealExpenses / 100.0));
-        printer.print(String.format("\nTotal $%.02f", total / 100.0));
+        printer.print(String.format("\nMeal expenses $%.02f", expenseReport.getMealExpenses() / 100.0));
+        printer.print(String.format("\nTotal $%.02f", expenseReport.getTotal() / 100.0));
     }
 
     private void printHeader() {
@@ -55,7 +37,7 @@ public class ExpenseReporter {
     }
 
     public void addExpense(Expense expense) {
-        expenses.add(expense);
+        expenseReport.addExpense(expense);
     }
 
     private String getDate() {
