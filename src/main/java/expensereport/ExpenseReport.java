@@ -9,19 +9,12 @@ import static expensereport.Expense.Type.DINNER;
 
 public class ExpenseReport {
     private List<Expense> expenses = new ArrayList<Expense>();
+    private int mealExpenses = 0;
+    private int total = 0;
 
     public void printReport(ReportPrinter printer) {
-        int total = 0;
-        int mealExpenses = 0;
-
         printHeader(printer);
-
-        for (Expense expense : expenses) {
-            if (expense.type == BREAKFAST || expense.type == DINNER)
-                mealExpenses += expense.amount;
-
-            total += expense.amount;
-        }
+        totalsUpExpense();
 
         for (Expense expense : expenses) {
 
@@ -45,6 +38,15 @@ public class ExpenseReport {
         }
 
         printTotals(printer, total, mealExpenses);
+    }
+
+    private void totalsUpExpense() {
+        for (Expense expense : expenses) {
+            if (expense.type == BREAKFAST || expense.type == DINNER)
+                mealExpenses += expense.amount;
+
+            total += expense.amount;
+        }
     }
 
     private void printTotals(ReportPrinter printer, int total, int mealExpenses) {
