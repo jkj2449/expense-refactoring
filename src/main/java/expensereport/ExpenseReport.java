@@ -30,25 +30,28 @@ public class ExpenseReport {
 
     private void printExpenses() {
         for (Expense expense : expenses) {
-
-            String name = "TILT";
-            switch (expense.type) {
-                case DINNER:
-                    name = "Dinner";
-                    break;
-                case BREAKFAST:
-                    name = "Breakfast";
-                    break;
-                case CAR_RENTAL:
-                    name = "Car Rental";
-                    break;
-            }
             printer.print(String.format("%s\t%s\t$%.02f\n",
                     ((expense.type == DINNER && expense.amount > 5000)
                             || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
-                    name, expense.amount / 100.0));
+                    getName(expense), expense.amount / 100.0));
 
         }
+    }
+
+    private String getName(Expense expense) {
+        String name = "TILT";
+        switch (expense.type) {
+            case DINNER:
+                name = "Dinner";
+                break;
+            case BREAKFAST:
+                name = "Breakfast";
+                break;
+            case CAR_RENTAL:
+                name = "Car Rental";
+                break;
+        }
+        return name;
     }
 
     private void totalsUpExpense() {
