@@ -14,8 +14,15 @@ public class ExpenseReport {
 
     public void printReport(ReportPrinter printer) {
         printHeader(printer);
+
         totalsUpExpense();
 
+        printExpenses(printer);
+
+        printTotals(printer, total, mealExpenses);
+    }
+
+    private void printExpenses(ReportPrinter printer) {
         for (Expense expense : expenses) {
 
             String name = "TILT";
@@ -36,8 +43,6 @@ public class ExpenseReport {
                     name, expense.amount / 100.0));
 
         }
-
-        printTotals(printer, total, mealExpenses);
     }
 
     private void totalsUpExpense() {
