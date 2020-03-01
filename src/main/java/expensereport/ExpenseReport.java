@@ -14,7 +14,7 @@ public class ExpenseReport {
         int total = 0;
         int mealExpenses = 0;
 
-        printer.print("Expenses " + getDate() + "\n");
+        printHeader(printer);
 
         for (Expense expense : expenses) {
             if (expense.type == BREAKFAST || expense.type == DINNER)
@@ -40,8 +40,16 @@ public class ExpenseReport {
             total += expense.amount;
         }
 
+        printTotals(printer, total, mealExpenses);
+    }
+
+    private void printTotals(ReportPrinter printer, int total, int mealExpenses) {
         printer.print(String.format("\nMeal expenses $%.02f", mealExpenses / 100.0));
         printer.print(String.format("\nTotal $%.02f", total / 100.0));
+    }
+
+    private void printHeader(ReportPrinter printer) {
+        printer.print("Expenses " + getDate() + "\n");
     }
 
     public void addExpense(Expense expense) {
